@@ -5,14 +5,23 @@ Registry public de composants shadcn/ui créé par Youzoune. Partagez et distrib
 ## ✨ Fonctionnalités
 
 - 🚀 Registry de composants personnalisés
-- ⚡ Construit avec Bun pour des performances optimales
-- 🎨 Utilise Tailwind CSS 4 et shadcn/ui
+- ⚡ Construit avec Next.js et Bun pour des performances optimales
+- 🎨 Utilise Tailwind CSS 4 (alpha) et shadcn/ui
 - 📦 Entièrement compatible avec le CLI shadcn
 - 🔧 Support TypeScript complet
 - 🌙 Mode sombre inclus
 - 📱 Responsive design
+- 🎯 Support des blocs et composants UI
 
 ## 🎯 Composants Disponibles
+
+### Button
+
+Un composant Button moderne avec de nombreuses variantes et support Radix UI.
+
+```bash
+bunx shadcn@latest add button --registry http://localhost:3000
+```
 
 ### Hello World
 
@@ -43,43 +52,53 @@ git clone https://github.com/Youzoune/registry.git
 cd registry
 ```
 
-2. **Installer les dépendances avec Bun**
+2. **Installer les dépendances**
 
 ```bash
+# Avec Bun (recommandé)
 bun install
+
+# Ou avec npm
+npm install
 ```
 
 3. **Démarrer le serveur de développement**
 
 ```bash
 bun run dev
+# ou npm run dev
 ```
 
 4. **Construire le registry**
 
 ```bash
 bun run registry:build
+# ou npm run registry:build
 ```
 
 5. **Construire pour la production**
 
 ```bash
 bun run build
+# ou npm run build
 ```
 
 ## 📁 Structure du Projet
 
-```
-├── app/                    # Application Next.js
-├── components/             # Composants de l'interface
-├── lib/                    # Utilitaires (cn, etc.)
-├── registry/               # Composants du registry
-│   └── new-york/
-│       ├── ui/            # Composants UI de base
-│       └── blocks/        # Composants métier
-├── scripts/               # Scripts de build
-├── public/r/              # Fichiers JSON générés
-└── registry.json          # Configuration du registry
+```text
+├── src/
+│   ├── app/                # Application Next.js
+│   │   ├── api/registry/   # API du registry
+│   │   └── r/              # Routes des composants
+│   ├── lib/                # Utilitaires (cn, etc.)
+│   └── registry/           # Composants du registry
+│       └── new-york/
+│           ├── ui/         # Composants UI de base (button, etc.)
+│           └── blocks/     # Composants métier (hello-world, etc.)
+├── scripts/                # Scripts de build
+├── public/r/               # Fichiers JSON générés
+├── registry.json           # Configuration du registry
+└── components.json         # Configuration shadcn/ui
 ```
 
 ## 🔧 Ajouter de Nouveaux Composants
@@ -87,13 +106,13 @@ bun run build
 1. **Créer votre composant**
 
 ```bash
-mkdir -p registry/new-york/blocks/mon-composant
+mkdir -p src/registry/new-york/blocks/mon-composant
 ```
 
 2. **Créer le fichier TypeScript**
 
 ```tsx
-// registry/new-york/blocks/mon-composant/mon-composant.tsx
+// src/registry/new-york/blocks/mon-composant/mon-composant.tsx
 export function MonComposant() {
   return <div>Mon composant</div>
 }
@@ -109,12 +128,22 @@ export function MonComposant() {
       "type": "registry:block",
       "description": "Description de mon composant",
       "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [],
       "files": [
         {
-          "path": "registry/new-york/blocks/mon-composant/mon-composant.tsx",
-          "type": "registry:component"
+          "path": "src/registry/new-york/blocks/mon-composant/mon-composant.tsx",
+          "content": "",
+          "type": "registry:component",
+          "target": ""
         }
-      ]
+      ],
+      "tailwind": {},
+      "cssVars": {},
+      "meta": {
+        "importSpecifier": "MonComposant",
+        "moduleSpecifier": "./mon-composant"
+      }
     }
   ]
 }
@@ -124,6 +153,7 @@ export function MonComposant() {
 
 ```bash
 bun run registry:build
+# ou npm run registry:build
 ```
 
 ## 🌐 Déploiement
@@ -144,12 +174,23 @@ Assurez-vous de définir `NEXT_PUBLIC_BASE_URL` avec votre domaine public.
 ```bash
 # Tester la construction du registry
 bun run registry:build
+# ou npm run registry:build
 
 # Vérifier que les fichiers JSON sont générés
 ls public/r/
 
-# Tester l'API du registry
+# Tester l'API du registry en local
 curl http://localhost:3000/r/hello-world.json
+curl http://localhost:3000/r/button.json
+curl http://localhost:3000/r/index.json
+
+# Lancer le linter
+bun run lint
+# ou npm run lint
+
+# Formatter le code
+bun run format
+# ou npm run format
 ```
 
 ## 📡 API
@@ -177,4 +218,4 @@ MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
 ---
 
-Créé avec ❤️ en utilisant [Next.js](https://nextjs.org/), [Bun](https://bun.sh/), [Tailwind CSS](https://tailwindcss.com/) et [shadcn/ui](https://ui.shadcn.com/)
+Créé avec ❤️ en utilisant [Next.js](https://nextjs.org/), [Bun](https://bun.sh/), [Tailwind CSS 4](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) et [Radix UI](https://www.radix-ui.com/)

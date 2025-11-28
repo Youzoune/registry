@@ -4,10 +4,10 @@ import path from 'path'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { name: string } },
+  { params }: { params: Promise<{ name: string }> },
 ) {
   try {
-    const { name } = params
+    const { name } = await params
 
     // Lire le fichier registry.json
     const registryPath = path.join(process.cwd(), 'registry.json')

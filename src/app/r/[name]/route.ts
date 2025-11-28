@@ -4,10 +4,10 @@ import path from 'path'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { name: string } },
+  { params }: { params: Promise<{ name: string }> },
 ) {
   try {
-    const { name } = params
+    const { name } = await params
     const filePath = path.join(process.cwd(), 'public/r', `${name}.json`)
 
     // Check if the file exists
