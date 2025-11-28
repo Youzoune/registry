@@ -1,0 +1,68 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "app/globals.css",
+    "baseColor": "gray",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui"
+  },
+  "registry": [
+    {
+      "name": "hello-world",
+      "type": "registry:block",
+      "description": "Un composant Hello World simple et élégant pour commencer avec Youzoune Registry",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/hello-world/hello-world.tsx",
+          "content": "",
+          "type": "registry:component",
+          "target": ""
+        }
+      ],
+      "tailwind": {
+        "config": {
+          "plugins": ["require('@tailwindcss/typography')"]
+        }
+      },
+      "cssVars": {},
+      "meta": {
+        "importSpecifier": "HelloWorld",
+        "moduleSpecifier": "./hello-world"
+      }
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "description": "Composant Button avec variantes et support Radix UI",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
+      "devDependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/ui/button.tsx",
+          "content": "",
+          "type": "registry:component",
+          "target": ""
+        }
+      ],
+      "tailwind": {},
+      "cssVars": {},
+      "meta": {
+        "importSpecifier": "Button",
+        "moduleSpecifier": "./button"
+      }
+    }
+  ]
+}
