@@ -1,0 +1,15 @@
+{
+  "name": "faq-schema",
+  "displayName": "faq-schema",
+  "description": "FAQ Schema Registry - Rich snippets and structured data components for better SEO",
+  "version": "1.0.0",
+  "style": "new-york",
+  "componentCount": 1,
+  "items": [
+    {
+      "name": "faq-schema",
+      "type": "registry:ui",
+      "description": "A component that generates JSON-LD structured data for FAQ pages to improve SEO and rich snippets"
+    }
+  ]
+}

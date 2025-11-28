@@ -1,0 +1,22 @@
+{
+  "name": "faq-schema",
+  "type": "registry:ui",
+  "description": "A component that generates JSON-LD structured data for FAQ pages to improve SEO and rich snippets",
+  "dependencies": [],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "src/registry/faq-schema/ui/faq-schema.tsx",
+      "content": "'use client'\n\nexport interface FAQItem {\n  question: string\n  answer: string\n}\n\ninterface FAQSchemaProps {\n  questions: FAQItem[]\n  pageUrl?: string\n  pageTitle?: string\n  pageDescription?: string\n  baseUrl?: string\n  siteName?: string\n  logoUrl?: string\n  language?: string\n}\n\n/**\n * FAQSchema - A component that generates JSON-LD structured data for FAQ pages\n *\n * @example\n * const faqItems = [\n *   { question: \"Comment ça marche ?\", answer: \"C'est très simple...\" },\n *   { question: \"Combien ça coûte ?\", answer: \"Les prix commencent à...\" }\n * ]\n *\n * <FAQSchema\n *   questions={faqItems}\n *   pageUrl=\"/faq\"\n *   pageTitle=\"FAQ - Questions fréquentes\"\n *   pageDescription=\"Trouvez les réponses à vos questions\"\n *   siteName=\"Mon Site\"\n *   baseUrl=\"https://monsite.com\"\n * />\n */\nexport function FAQSchema({\n  questions,\n  pageUrl = '/faq',\n  pageTitle = 'FAQ',\n  pageDescription = 'Questions fréquemment posées',\n  baseUrl = '',\n  siteName = 'Mon Site',\n  logoUrl,\n  language = 'fr-FR',\n}: FAQSchemaProps) {\n  // Construire la liste des questions au format Schema.org\n  const schemaQuestions = questions.map((item) => ({\n    '@type': 'Question',\n    name: item.question,\n    acceptedAnswer: {\n      '@type': 'Answer',\n      text: item.answer,\n    },\n  }))\n\n  // Construire l'URL complète\n  const fullUrl = baseUrl ? `${baseUrl}${pageUrl}` : pageUrl\n\n  // Générer le schéma JSON-LD pour FAQPage\n  const jsonLd = {\n    '@context': 'https://schema.org',\n    '@type': 'FAQPage',\n    mainEntity: schemaQuestions,\n    url: fullUrl,\n    name: pageTitle,\n    description: pageDescription,\n    publisher: {\n      '@type': 'Organization',\n      name: siteName,\n      url: baseUrl,\n      ...(logoUrl && {\n        logo: {\n          '@type': 'ImageObject',\n          url: logoUrl,\n        },\n      }),\n    },\n    inLanguage: language,\n  }\n\n  return (\n    <script\n      type=\"application/ld+json\"\n      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}\n    />\n  )\n}",
+      "type": "registry:component",
+      "target": "components/faq-schema.tsx"
+    }
+  ],
+  "tailwind": {},
+  "cssVars": {},
+  "meta": {
+    "importSpecifier": "FAQSchema",
+    "moduleSpecifier": "./faq-schema"
+  }
+}
