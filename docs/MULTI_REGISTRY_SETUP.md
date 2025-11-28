@@ -1,11 +1,13 @@
 # Multi-Registry Setup Guide
 
 ## Overview
+
 This guide helps you set up a multi-registry system where you can manage multiple component registries with automatic landing page integration and documentation.
 
 ## Quick Setup
 
 ### 1. Create Registry Structure
+
 ```bash
 # Create registries directory
 mkdir -p registries
@@ -17,6 +19,7 @@ mv registry.json registries/youzoune-registry.json
 ```
 
 ### 2. Registry Configuration Format
+
 Each registry in `registries/` follows this format:
 
 ```json
@@ -48,6 +51,7 @@ Each registry in `registries/` follows this format:
 ```
 
 ### 3. Component Directory Structure
+
 ```
 src/registry/
 ├── youzoune-registry/
@@ -65,21 +69,25 @@ src/registry/
 ```
 
 ### 4. Registry Documentation Template
+
 Create `docs/registries/{registry-name}.md`:
 
 ```markdown
 # Registry Name
 
 ## Overview
+
 Brief description of the registry's purpose and target audience.
 
 ## Components
 
 ### UI Components
+
 - **Component Name**: Description and use case
 - **Another Component**: Description
 
 ### Blocks
+
 - **Block Name**: Description and use case
 
 ## Installation
@@ -91,21 +99,24 @@ npx shadcn@latest add component-name --registry https://yourdomain.com/registry-
 ## Examples
 
 ### Basic Usage
+
 \`\`\`tsx
 import { ComponentName } from "@/components/ui/component-name"
 
 export function Example() {
-  return <ComponentName />
+return <ComponentName />
 }
 \`\`\`
 
 ## Customization
+
 Guidelines for customizing components from this registry.
 ```
 
 ## Implementation Steps
 
 ### Step 1: Update Build Script
+
 Modify `scripts/build-registry.ts` to handle multiple registries:
 
 ```typescript
@@ -123,12 +134,16 @@ for (const file of registryFiles) {
 ```
 
 ### Step 2: Update API Routes
+
 Create registry-specific API routes:
+
 - `/api/registry/[registry]/[component]`
 - `/r/[registry]/[component]`
 
 ### Step 3: Landing Page Integration
+
 Update `src/app/page.tsx` to:
+
 1. Auto-discover all registries
 2. Display registry cards with previews
 3. Link to documentation pages
@@ -148,7 +163,9 @@ Update `src/app/page.tsx` to:
 ## Recommended Features
 
 ### 1. Registry Metadata
+
 Add to each registry config:
+
 ```json
 {
   "metadata": {
@@ -164,7 +181,9 @@ Add to each registry config:
 ```
 
 ### 2. Component Categories
+
 Organize components within registries:
+
 ```json
 {
   "categories": {
@@ -176,7 +195,9 @@ Organize components within registries:
 ```
 
 ### 3. Registry Discovery API
+
 Create `/api/registries` endpoint:
+
 ```json
 {
   "registries": [
@@ -192,7 +213,9 @@ Create `/api/registries` endpoint:
 ```
 
 ### 4. CLI Integration
+
 Custom CLI commands:
+
 ```bash
 # Create new registry
 bun registry create my-registry --template=basic
