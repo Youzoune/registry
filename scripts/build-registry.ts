@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
-import fs from "fs/promises"
-import path from "path"
+import fs from 'fs/promises'
+import path from 'path'
 
 interface RegistryItem {
   name: string
@@ -32,15 +32,15 @@ interface Registry {
 
 async function buildRegistry() {
   try {
-    console.log("🔨 Building Youzoune Registry...")
+    console.log('🔨 Building Youzoune Registry...')
 
     // Read the registry configuration
-    const registryPath = path.join(process.cwd(), "registry.json")
-    const registryContent = await fs.readFile(registryPath, "utf8")
+    const registryPath = path.join(process.cwd(), 'registry.json')
+    const registryContent = await fs.readFile(registryPath, 'utf8')
     const registry: Registry = JSON.parse(registryContent)
 
     // Ensure the public/r directory exists
-    const publicRDir = path.join(process.cwd(), "public", "r")
+    const publicRDir = path.join(process.cwd(), 'public', 'r')
     await fs.mkdir(publicRDir, { recursive: true })
 
     // Process each registry item
@@ -53,11 +53,11 @@ async function buildRegistry() {
       for (const file of processedItem.files) {
         try {
           const filePath = path.join(process.cwd(), file.path)
-          const content = await fs.readFile(filePath, "utf8")
+          const content = await fs.readFile(filePath, 'utf8')
           file.content = content
         } catch (error) {
           console.warn(`⚠️  Could not read file: ${file.path}`)
-          file.content = ""
+          file.content = ''
         }
       }
 
@@ -70,8 +70,8 @@ async function buildRegistry() {
 
     // Create an index file with all available items
     const indexContent = {
-      name: "youzoune-registry",
-      description: "Youzoune public registry for shadcn/ui components",
+      name: 'youzoune-registry',
+      description: 'Youzoune public registry for shadcn/ui components',
       items: registry.registry.map((item) => ({
         name: item.name,
         type: item.type,
@@ -80,14 +80,14 @@ async function buildRegistry() {
     }
 
     await fs.writeFile(
-      path.join(publicRDir, "index.json"),
-      JSON.stringify(indexContent, null, 2)
+      path.join(publicRDir, 'index.json'),
+      JSON.stringify(indexContent, null, 2),
     )
 
-    console.log("🎉 Registry build completed successfully!")
+    console.log('🎉 Registry build completed successfully!')
     console.log(`📁 Generated ${registry.registry.length} registry items`)
   } catch (error) {
-    console.error("❌ Failed to build registry:", error)
+    console.error('❌ Failed to build registry:', error)
     process.exit(1)
   }
 }

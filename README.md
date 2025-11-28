@@ -15,6 +15,7 @@ Registry public de composants shadcn/ui créé par Youzoune. Partagez et distrib
 ## 🎯 Composants Disponibles
 
 ### Hello World
+
 Un composant d'exemple simple et élégant pour démarrer avec le registry.
 
 ```bash
@@ -36,27 +37,32 @@ npx shadcn@latest add hello-world --registry https://your-registry-url.com
 ### Développement local
 
 1. **Cloner le repository**
+
 ```bash
 git clone https://github.com/Youzoune/registry.git
 cd registry
 ```
 
 2. **Installer les dépendances avec Bun**
+
 ```bash
 bun install
 ```
 
 3. **Démarrer le serveur de développement**
+
 ```bash
 bun run dev
 ```
 
 4. **Construire le registry**
+
 ```bash
 bun run registry:build
 ```
 
 5. **Construire pour la production**
+
 ```bash
 bun run build
 ```
@@ -79,11 +85,13 @@ bun run build
 ## 🔧 Ajouter de Nouveaux Composants
 
 1. **Créer votre composant**
+
 ```bash
 mkdir -p registry/new-york/blocks/mon-composant
 ```
 
 2. **Créer le fichier TypeScript**
+
 ```tsx
 // registry/new-york/blocks/mon-composant/mon-composant.tsx
 export function MonComposant() {
@@ -92,6 +100,7 @@ export function MonComposant() {
 ```
 
 3. **Mettre à jour `registry.json`**
+
 ```json
 {
   "registry": [
@@ -112,6 +121,7 @@ export function MonComposant() {
 ```
 
 4. **Construire le registry**
+
 ```bash
 bun run registry:build
 ```
